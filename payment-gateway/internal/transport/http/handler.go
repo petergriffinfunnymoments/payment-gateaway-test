@@ -2,6 +2,7 @@ package http
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -100,15 +101,15 @@ func (h *Handler) GetStatusHandler(w http.ResponseWriter, r *http.Request) {
 // validateRequest выполняет базовую валидацию запроса
 func (h *Handler) validateRequest(req models.CreatePaymentRequest) error {
 	if req.PaymentInfo.Amount.Value <= 0 {
-		return &json.UnmarshalTypeError{Value: "amount must be positive"}
+		return fmt.Errorf("amount must be positive")
 	}
 
 	if req.PaymentInfo.Amount.Currency == "" {
-		return &json.UnmarshalTypeError{Value: "currency is required"}
+		return fmt.Errorf("currency is required")
 	}
 
 	if req.PaymentInfo.PaymentMethod == "" {
-		return &json.UnmarshalTypeError{Value: "payment_method is required"}
+		return fmt.Errorf("payment_method is required")
 	}
 
 	// Проверка метода оплаты
@@ -116,25 +117,25 @@ func (h *Handler) validateRequest(req models.CreatePaymentRequest) error {
 	case models.MethodSBP, models.MethodCard, models.MethodWallet:
 		// OK
 	default:
-		return &json.UnmarshalTypeError{Value: "invalid payment_method"}
+		return fmt.Errorf("invalid payment_method: %s", req.PaymentInfo.PaymentMethod)
 	}
 
 	// Валидация данных клиента в зависимости от метода оплаты
 	switch req.PaymentInfo.PaymentMethod {
 	case models.MethodSBP:
 		if req.PaymentInfo.CustomerData.Phone == "" {
-			return &json.UnmarshalTypeError{Value: "phone is required for SBP"}
+			return fmt.Errorf("phone is required for SBP")
 		}
 	case models.MethodCard:
 		if req.PaymentInfo.CustomerData.CardNumber == "" {
-			return &json.UnmarshalTypeError{Value: "card_number is required for CARD"}
+			return fmt.Errorf("card_number is required for CARD")
 		}
 		if req.PaymentInfo.CustomerData.CVV == "" {
-			return &json.UnmarshalTypeError{Value: "cvv_code is required for CARD"}
+			return fmt.Errorf("cvv_code is required for CARD")
 		}
 	case models.MethodWallet:
 		if req.PaymentInfo.CustomerData.DigitalWalletID == "" {
-			return &json.UnmarshalTypeError{Value: "digital_wallet_id is required for WALLET"}
+			return fmt.Errorf("digital_wallet_id is required for WALLET")
 		}
 	}
 

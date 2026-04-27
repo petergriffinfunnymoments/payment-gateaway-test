@@ -1,51 +1,46 @@
 ```
-# Go build artifacts
-*.o
-*.a
-*.so
-*.exe
-*.dll
-*.dylib
-*.test
-*.prof
-
-# Go cache and tools
-go.work.sum
-go.work
-!go.mod
-!go.sum
-
-# Build directories
-build/
-dist/
-target/
-
 # Dependencies
 vendor/
 
-# Environment files
+# Compiled/Generated files
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.o
+*.obj
+*.a
+*.lib
+
+# Build artifacts
+bin/
+dist/
+build/
+target/
+_coverage/
+
+# Environment
 .env
 .env.local
-*.env.*
+.env.*
 
 # Logs
 *.log
 
-# Editor/IDE
-.vscode/
-.idea/
-*.swp
-*.swo
+# Temporary files
+*.tmp
 *~
 .DS_Store
 Thumbs.db
 
-# Coverage
-.coverage
-coverage/
-htmlcov/
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Temporary files
-*.tmp
-*.temp
+# Go specific
+*.test
+*.prof
 ```
