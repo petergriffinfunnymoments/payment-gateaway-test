@@ -1,49 +1,51 @@
-# Project-specific ignores
-payment-gateway/PROJECT_STRUCTURE.md
-
-# Dependencies
-node_modules/
-venv/
-.venv/
-__pycache__/
-.mypy_cache/
-.pytest_cache/
-target/
-.gradle/
-
-# Build artifacts
-dist/
-build/
-*.pyc
-*.class
+```
+# Go build artifacts
 *.o
+*.a
+*.so
 *.exe
 *.dll
-*.so
-*.a
-*.obj
-*.out
+*.dylib
+*.test
+*.prof
+
+# Go cache and tools
+go.work.sum
+go.work
+!go.mod
+!go.sum
+
+# Build directories
+build/
+dist/
+target/
+
+# Dependencies
+vendor/
 
 # Environment files
 .env
 .env.local
 *.env.*
 
-# Editor/IDE files
+# Logs
+*.log
+
+# Editor/IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*.tmp
-
-# Logs
-*.log
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# System files
+*~
 .DS_Store
 Thumbs.db
+
+# Coverage
+.coverage
+coverage/
+htmlcov/
+
+# Temporary files
+*.tmp
+*.temp
+```
